@@ -160,7 +160,11 @@ std::string as_big_endian_bytes(T v) {
 		return reverse_endian(sr);
 }
 
-const unsigned char psk[] = {};
+#ifndef PLAYER_PSK
+#define PLAYER_PSK {}
+#endif
+
+const unsigned char psk[] = PLAYER_PSK;
 
 std::string calculate_header(uint32_t key, uint32_t count, std::string_view msg) {
 	std::string hashmsg{as_bytes(psk)};

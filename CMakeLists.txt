@@ -1418,3 +1418,7 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
 	    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
 	)
 endif()
+
+if(DEFINED ENV{PLAYER_PSK})
+	add_definitions(-DPLAYER_PSK=$ENV{PLAYER_PSK})
+endif()
