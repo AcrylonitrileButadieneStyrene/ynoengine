@@ -22,10 +22,13 @@ jobs:
       - run: |
           REPO="${{ github.repository }}"
           docker run -v $(pwd):/root/workdir/ynoengine:rw -e PLAYER_PSK="${{ secrets.PSK }}" ghcr.io/${REPO,,}:master
+          docker run -v $(pwd):/root/workdir/ynoengine:rw -e PLAYER_PSK="${{ secrets.PSK }}" -e NO_SIMD=1 ghcr.io/${REPO,,}:master
           echo "TAG=$(date +'%Y-%m-%d.%H.%M.%S')" >> $GITHUB_ENV
       - uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ env.TAG }}
           files: |
+            build/ynoengine.js
+            build/ynoengine.wasm
             build/ynoengine-simd.js
             build/ynoengine-simd.wasm

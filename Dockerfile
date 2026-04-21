@@ -27,6 +27,12 @@ RUN apt-get install -y ninja-build ccache
 
 CMD bash -c "source /root/workdir/buildscripts/emscripten/emsdk-portable/emsdk_env.sh; \
              cd /root/workdir/ynoengine; \
-             ./cmake_build.sh; \
+	     if [[ \"$NO_SIMD\" -eq 1 ]]; then \
+	     	./cmake_build_nosimd.sh; \
+	     else \
+             	./cmake_build.sh; \
+	     fi; \
 	     cd build; \
 	     ninja"
+
+
